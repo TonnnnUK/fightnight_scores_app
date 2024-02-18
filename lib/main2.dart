@@ -70,7 +70,6 @@ class _AppControllerState extends State<AppController> {
       return Scaffold(
         appBar: AppBar(
           title: Text('Fightnight Scores'),
-          surfaceTintColor: Color(0xFFFFFFFF),
         ),
         drawer: Drawer(
           child: ListView(
