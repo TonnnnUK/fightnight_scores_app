@@ -8,10 +8,20 @@ class HomePage extends StatelessWidget {
     return const Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            FightCard(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              FightCard(),
+              FightCard(),
+              FightCard(),
+              FightCard(),
+              FightCard(),
+              FightCard(),
+              FightCard(),
+              FightCard(),
+              FightCard(),
+            ],
+          ),
         ),
       ),
     );
@@ -26,7 +36,7 @@ class FightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Card(
-      color: Color(0xFFEAEAEA),
+      color: Color(0xFFFFFFFF),
       child: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
