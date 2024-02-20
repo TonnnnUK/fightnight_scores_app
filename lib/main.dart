@@ -1,5 +1,10 @@
+import 'package:fightnight_scores/components/bottom-nav.dart';
+import 'package:fightnight_scores/components/drawer-menu.dart';
+import 'package:fightnight_scores/pages/analysis.dart';
+import 'package:fightnight_scores/pages/boxers.dart';
 import 'package:fightnight_scores/pages/events.dart';
 import 'package:fightnight_scores/pages/home.dart';
+import 'package:fightnight_scores/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +13,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +21,28 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Fighnight Scores',
         theme: ThemeData(
           primaryColor: Color(0xFF790000),
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
         ),
-        home: AppController(),
+        title: 'Fighnight Scores',
+        home: AuthWrapper(),
       ),
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
-  
-  //notifyListeners();
+  bool isLoggedIn = false;
+}
 
+class AuthWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final isLoggedIn = Provider.of<MyAppState>(context).isLoggedIn;
+    return isLoggedIn ? AppController() : LoginPage();
+  }
 }
 
 class AppController extends StatefulWidget {
@@ -40,64 +51,59 @@ class AppController extends StatefulWidget {
 }
 
 class _AppControllerState extends State<AppController> {
-
   var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    Widget page;
+    String appBarTitle = '';
 
-  Widget page;
-  switch (selectedIndex) {
-    case 0:
-      page = HomePage();
-      break;
-    case 1:
-      page = EventsPage();
-      break;
-    default:
-      throw UnimplementedError('no widget for $selectedIndex');
-  }
+    switch (selectedIndex) {
+      case 0:
+        page = const HomePage();
+        appBarTitle = 'Home';
+        break;
+      case 1:
+        page = const EventsPage();
+        appBarTitle = 'Events';
+        break;
+      case 2:
+        // Add new case for additional menu item
+        page = const AnalysisPage();
+        appBarTitle = 'Analysis';
+        break;
+      case 3:
+        // Add new case for additional menu item
+        page = const BoxersPage();
+        appBarTitle = 'Boxers';
+        break;
+      default:
+        throw UnimplementedError('no widget for $selectedIndex');
+    }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final theme = Theme.of(context);
-
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: const [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.edit_document),
-                      label: Text('Favorites'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  selectedIconTheme: const IconThemeData(color: Color(0xFFFFFFFF)),
-                  indicatorColor: theme.colorScheme.primary, 
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: const Color(0xFFE6E6E6),
-                  child: page,
-                ),
-              ),
-            ],
-          ),
-        );
-      }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appBarTitle),
+        centerTitle: true,
+        titleTextStyle: const TextStyle(fontSize: 16.0),
+      ),
+      drawer: DrawerMenu(
+        onItemTapped: (index) {
+          // Update the selectedIndex state when a menu item is tapped
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+      ),
+      body: page,
+      bottomNavigationBar: BottomNav(
+        selectedIndex: selectedIndex, // Pass selectedIndex value
+        onItemTapped: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }
