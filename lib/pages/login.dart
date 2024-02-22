@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                     _isLoginForm = false;
                   });
                 },
-                child: const Text('or click here to register an account'),
+                child: const Text('or register an account'),
               ),
             ]),
           ),
