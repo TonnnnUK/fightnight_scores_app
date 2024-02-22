@@ -35,26 +35,31 @@ class FightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
-      color: Color(0xFFFFFFFF),
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              'EVENT',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 5.0),
-            Text('MGM Grand'),
-            Text(
-              'Jan 20 2024',
-              style: TextStyle(fontSize: 11.0),
-            ),
-            SizedBox(height: 10.0),
-            FightColumn(),
-          ],
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+      child: Card(
+        color: Color(0xFFECF7FC),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'EVENT',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 5.0),
+              Text('MGM Grand'),
+              Text(
+                'Jan 20 2024',
+                style: TextStyle(fontSize: 11.0),
+              ),
+              SizedBox(height: 10.0),
+              FightColumn(),
+              FightColumn(),
+              FightColumn(),
+            ],
+          ),
         ),
       ),
     );
@@ -69,10 +74,21 @@ class FightColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const ListTile(
-        leading: Icon(Icons.sports_mma_rounded),
-        title: Text('Oleksandr Usyk vs Anthony Joshua'),
-      ),
+      const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text(
+          'Oleksandr Usyk',
+          style:
+              TextStyle(color: Color(0xFF1C1A96), fontWeight: FontWeight.bold),
+        ),
+        SizedBox(width: 5.0),
+        Text('vs'),
+        SizedBox(width: 5.0),
+        Text(
+          'Anthony Joshua',
+          style:
+              TextStyle(color: Color(0xFF961A1A), fontWeight: FontWeight.bold),
+        ),
+      ]),
       const SizedBox(height: 10.0),
       ElevatedButton(
         onPressed: () {
@@ -92,6 +108,9 @@ class FightColumn extends StatelessWidget {
           ),
         ],
       ),
+      SizedBox(height: 10.0),
+      Divider(height: 10.0,thickness: 1.0, color: Color(0xFF7C7C7C)),
+      SizedBox(height: 30.0,)
     ]);
   }
 }

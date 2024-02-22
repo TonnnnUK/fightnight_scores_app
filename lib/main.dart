@@ -41,7 +41,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = Provider.of<MyAppState>(context).isLoggedIn;
-    return isLoggedIn ? AppController() : LoginPage();
+    return !isLoggedIn ? AppController() : LoginPage();
   }
 }
 
@@ -83,7 +83,12 @@ class _AppControllerState extends State<AppController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appBarTitle),
+        title: Text(
+          appBarTitle,
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
+        backgroundColor: const Color(0xFF790000),
         centerTitle: true,
         titleTextStyle: const TextStyle(fontSize: 16.0),
       ),
