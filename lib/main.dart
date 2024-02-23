@@ -1,5 +1,5 @@
-import 'package:fightnight_scores/components/bottom-nav.dart';
-import 'package:fightnight_scores/components/drawer-menu.dart';
+import 'package:fightnight_scores/components/bottom_nav.dart';
+import 'package:fightnight_scores/components/drawer_menu.dart';
 import 'package:fightnight_scores/pages/analysis.dart';
 import 'package:fightnight_scores/pages/boxers.dart';
 import 'package:fightnight_scores/pages/events.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color(0xFF790000),
+          primaryColor: const Color(0xFF790000),
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
         ),
@@ -41,7 +41,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = Provider.of<MyAppState>(context).isLoggedIn;
-    return !isLoggedIn ? AppController() : LoginPage();
+    return !isLoggedIn ? AppController() : const LoginPage();
   }
 }
 
@@ -85,9 +85,9 @@ class _AppControllerState extends State<AppController> {
       appBar: AppBar(
         title: Text(
           appBarTitle,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
+        iconTheme: const IconThemeData(color: Color(0xFFFFFFFF)),
         backgroundColor: const Color(0xFF790000),
         centerTitle: true,
         titleTextStyle: const TextStyle(fontSize: 16.0),
