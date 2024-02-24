@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../components/event_card.dart';
-import '../components/fight_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

@@ -1,3 +1,4 @@
+import 'package:fightnight_scores/pages/webview.dart';
 import 'package:flutter/material.dart';
 import '../pages/scorecard.dart';
 
@@ -13,26 +14,30 @@ class FightItem extends StatefulWidget {
 class _FightItemState extends State<FightItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ExpansionTile(
+    return Card(
+      color: Color(0xFFFFFFFF),
+      child: ExpansionTile(
         backgroundColor: Colors.grey.shade200,
-        title: const Row(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                children: [
-                Text(
-                  'Oleksandr Usyk',
-                  style: TextStyle(
-                      color: Color(0xFF1C1A96), fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 5.0),
-                Text('vs'),
-                SizedBox(width: 5.0),
-                Text(
-                  'Anthony Joshua',
-                  style: TextStyle(
-                      color: Color(0xFF961A1A), fontWeight: FontWeight.bold),
-                ),
-              ]),
+        title:
+            const Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Text(
+            'Oleksandr Usyk',
+            style: TextStyle(
+                fontSize: 12.0,
+                color: Color(0xFF1C1A96),
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(width: 5.0),
+          Text('vs'),
+          SizedBox(width: 5.0),
+          Text(
+            'Anthony Joshua',
+            style: TextStyle(
+                fontSize: 12.0,
+                color: Color(0xFF961A1A),
+                fontWeight: FontWeight.bold),
+          ),
+        ]),
         children: [
           const SizedBox(
             height: 10.0,
@@ -63,11 +68,11 @@ class _FightItemState extends State<FightItem> {
                 MaterialPageRoute(
                   builder: (context) => const ScorecardScreen(
                       fightId:
-                          '123'), // Pass the fight ID or other necessary data
+                          'Score the fight'), // Pass the fight ID or other necessary data
                 ),
               );
             },
-            child: Text('Create a scorecard'),
+            child: const Text('Create a scorecard'),
           ),
           const SizedBox(height: 20.0),
           Row(
@@ -75,9 +80,13 @@ class _FightItemState extends State<FightItem> {
             children: <Widget>[
               GestureDetector(
                 onTap: () => {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Tap analysis'),
-                  ))
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WebViewContainer(
+                          url: 'https://fight-score.com'),
+                    ),
+                  )
                 },
                 child: const Column(
                   children: [
@@ -97,9 +106,14 @@ class _FightItemState extends State<FightItem> {
               ),
               GestureDetector(
                 onTap: () => {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Tap average'),
-                  ))
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ScorecardScreen(
+                          fightId:
+                              'Average scorecard screen'), // Pass the fight ID or other necessary data
+                    ),
+                  )
                 },
                 child: const Column(
                   children: [
@@ -122,6 +136,6 @@ class _FightItemState extends State<FightItem> {
           const SizedBox(height: 10.0),
         ],
       ),
-    ]);
+    );
   }
 }
