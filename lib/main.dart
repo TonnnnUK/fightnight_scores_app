@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: const Color(0xFF790000),
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
-        ),
-        title: 'Fighnight Scores',
+            primaryColor: const Color(0xFF790000),
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
+            ),
+        title: 'Fightnight Scores',
         home: AuthWrapper(),
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DrawerMenu extends StatelessWidget {
   final Function(int) onItemTapped; // Callback function
-
   const DrawerMenu({Key? key, required this.onItemTapped}) : super(key: key);
 
   @override
