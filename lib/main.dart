@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primaryColor: const Color(0xFF790000),
-            useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
-            ),
+          primaryColor: const Color(0xFF790000),
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
+        ),
         title: 'Fightnight Scores',
         home: AuthWrapper(),
       ),
@@ -41,7 +41,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = Provider.of<MyAppState>(context).isLoggedIn;
-    return !isLoggedIn ? AppController() : const LoginPage();
+    return isLoggedIn ? AppController() : const LoginPage();
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -40,18 +41,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginForm() {
-    return Column(
-      children: [
-        const Text('You need to be logged in to use the Fightnight Scores app',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        const SizedBox(
-          height: 30.0,
-        ),
-        Card(
-          elevation: 8.0,
-          surfaceTintColor: Colors.grey,
-          color: Colors.grey.shade100,
-          child: Padding(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            'assets/icons/fns-logo.svg',
+            width: 140.0,
+          ),
+          Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 26.0),
             child: Column(children: [
@@ -72,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF790000)),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xFF790000)),
                 ),
                 onPressed: () {
                   // Implement login functionality
@@ -84,18 +81,30 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isLoginForm = false;
-                  });
-                },
-                child: const Text('or register an account'),
-              ),
             ]),
           ),
-        )
-      ],
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isLoginForm = false;
+              });
+            },
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Not registered?'),
+                SizedBox(
+                  width: 6.0,
+                ),
+                Text(
+                  'create an account',
+                  style: TextStyle(color: Color(0xff790000)),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -142,8 +151,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color(0xFF790000)),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(const Color(0xFF790000)),
                 ),
                 onPressed: () {
                   // Implement login functionality

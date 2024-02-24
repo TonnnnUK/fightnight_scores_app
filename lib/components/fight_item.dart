@@ -15,13 +15,13 @@ class _FightItemState extends State<FightItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xFFFFFFFF),
+      color: const Color(0xFFFFFFFF),
       child: ExpansionTile(
         backgroundColor: Colors.grey.shade200,
         title:
             const Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Text(
-            'Oleksandr Usyk',
+            'Usyk',
             style: TextStyle(
                 fontSize: 12.0,
                 color: Color(0xFF1C1A96),
@@ -31,7 +31,7 @@ class _FightItemState extends State<FightItem> {
           Text('vs'),
           SizedBox(width: 5.0),
           Text(
-            'Anthony Joshua',
+            'Joshua',
             style: TextStyle(
                 fontSize: 12.0,
                 color: Color(0xFF961A1A),
