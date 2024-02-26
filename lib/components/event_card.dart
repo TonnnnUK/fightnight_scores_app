@@ -1,35 +1,49 @@
 import 'package:flutter/material.dart';
-import 'fight_item.dart';
+import 'package:fightnight_scores/components/fight_item.dart';
+import 'package:intl/intl.dart';
 
-class EventCard extends StatefulWidget {
+class EventCard extends StatelessWidget {
+  final dynamic event;
+
   const EventCard({
-    super.key,
-  });
+    required this.event,
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  State<EventCard> createState() => _EventCardState();
-}
-
-class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+    final eventName = event['venue']['name'] ?? 'Unknown Event';
+    final eventDate = formatDate(event['date']);
+    final fightItems = event['fights'] ?? [];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       child: Card(
-        color: Color(0xFFECF7FC),
+        color: const Color(0xFFECF7FC),
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text('MGM Grand'),
+              Text(eventName ?? 'Event Name'),
               Text(
-                'Jan 20 2024',
-                style: TextStyle(fontSize: 11.0),
+                eventDate ?? 'Event Date',
+                style: const TextStyle(fontSize: 11.0),
               ),
-              SizedBox(height: 10.0),
-              FightItem(),
-              FightItem()
+              const SizedBox(height: 10.0),
+              Column(
+                children: fightItems.map<Widget>((fightItem) {
+                  return FightItem(
+                    fightData: fightItem,
+                    fighterA: fightItem['fighterA'],
+                    fighterB: fightItem['fighterB'],
+                    date: fightItem['date'],
+                    rounds: fightItem['rounds'],
+                    homefighter: fightItem['homefighter'],
+                    awayfighter: fightItem['awayfighter'],
+                  );
+                }).toList(),
+              ),
             ],
           ),
         ),
@@ -38,3 +52,8 @@ class _EventCardState extends State<EventCard> {
   }
 }
 
+String formatDate(String dateString) {
+  final dateTime = DateTime.parse(dateString);
+  final formattedDate = DateFormat('E, d MMM yyyy').format(dateTime);
+  return formattedDate;
+}

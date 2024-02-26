@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
         ),
         title: 'Fightnight Scores',
-        home: AuthWrapper(),
+        home: AppController(),
       ),
     );
   }
@@ -41,7 +41,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = Provider.of<MyAppState>(context).isLoggedIn;
-    return isLoggedIn ? AppController() : const LoginPage();
+    return AppController();
   }
 }
 
@@ -52,6 +52,7 @@ class AppController extends StatefulWidget {
 
 class _AppControllerState extends State<AppController> {
   var selectedIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +83,37 @@ class _AppControllerState extends State<AppController> {
     }
 
     return Scaffold(
+      key: _scaffoldKey, // Set the scaffold key
       appBar: AppBar(
         title: Text(
           appBarTitle,
           style: const TextStyle(color: Colors.white),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            onPressed: () {
+              // Open slide-out drawer screen
+              _scaffoldKey.currentState?.openEndDrawer();
+            },
+          ),
+        ],
         iconTheme: const IconThemeData(color: Color(0xFFFFFFFF)),
         backgroundColor: const Color(0xFF790000),
         centerTitle: true,
         titleTextStyle: const TextStyle(fontSize: 16.0),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Consumer<MyAppState>(
+              builder: (context, appState, _) {
+                return appState.isLoggedIn ? const Text('Account') : const LoginPage();
+              },
+            ),
+          ],
+        ),
       ),
       drawer: DrawerMenu(
         onItemTapped: (index) {

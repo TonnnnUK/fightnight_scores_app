@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ScorecardScreen extends StatefulWidget {
-  final String fightId; // Add any necessary parameters here
+  final dynamic fight; // Add any necessary parameters here
 
-  const ScorecardScreen({Key? key, required this.fightId}) : super(key: key);
+  const ScorecardScreen({Key? key, required this.fight}) : super(key: key);
 
   @override
   State<ScorecardScreen> createState() => _ScorecardScreenState();
@@ -14,10 +14,10 @@ class _ScorecardScreenState extends State<ScorecardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Score Fight'),
+        title: const Text('Score Fight'),
       ),
       body: Center(
-        child: Text('Fight ID: ${widget.fightId}'), // Display the fight ID or other relevant information
+        child: Text('Fight ID: ${widget.fight}'), // Display the fight ID or other relevant information
       ),
     );
   }
