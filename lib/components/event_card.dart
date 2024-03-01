@@ -12,7 +12,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final eventName = event['venue']['name'] ?? 'Unknown Event';
+    final venueName = event['venue']['name'] ?? 'Unknown Event';
     final eventDate = formatDate(event['date']);
     final fightItems = event['fights'] ?? [];
 
@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(eventName ?? 'Event Name'),
+              Text(venueName ?? 'Event Name'),
               Text(
                 eventDate ?? 'Event Date',
                 style: const TextStyle(fontSize: 11.0),
@@ -37,10 +37,11 @@ class EventCard extends StatelessWidget {
                     fightData: fightItem,
                     fighterA: fightItem['fighterA'],
                     fighterB: fightItem['fighterB'],
-                    date: fightItem['date'],
+                    date: eventDate,
                     rounds: fightItem['rounds'],
                     homefighter: fightItem['homefighter'],
                     awayfighter: fightItem['awayfighter'],
+                    venue: venueName,
                   );
                 }).toList(),
               ),

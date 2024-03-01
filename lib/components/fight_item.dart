@@ -10,6 +10,7 @@ class FightItem extends StatelessWidget {
   final int rounds;
   final Map<String, dynamic>? homefighter;
   final Map<String, dynamic>? awayfighter;
+  final String? venue;
 
   const FightItem({
     required this.fightData,
@@ -19,6 +20,7 @@ class FightItem extends StatelessWidget {
     required this.rounds,
     this.homefighter,
     this.awayfighter,
+    this.venue,
     Key? key,
   }) : super(key: key);
 
@@ -26,9 +28,10 @@ class FightItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // Extract first and last names from homefighter and awayfighter maps
     final String fightId = '${fightData['id']}';
-    final String fighterA = '${homefighter?['first_name']} ${homefighter?['last_name']}';
-    final String fighterB = '${awayfighter?['first_name']} ${awayfighter?['last_name']}';
-
+    final String fighterA =
+        '${homefighter?['first_name']} ${homefighter?['last_name']}';
+    final String fighterB =
+        '${awayfighter?['first_name']} ${awayfighter?['last_name']}';
 
     return Card(
       color: const Color(0xFFFFFFFF),
@@ -46,7 +49,10 @@ class FightItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 5.0),
-            const Text('vs', style: TextStyle(fontSize: 12.0),),
+            const Text(
+              'vs',
+              style: TextStyle(fontSize: 12.0),
+            ),
             const SizedBox(width: 5.0),
             Text(
               fighterB,
@@ -84,9 +90,8 @@ class FightItem extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ScorecardScreen(
-                    fight: fightData,
-                  ),
+                  builder: (context) =>
+                      ScorecardScreen(fight: fightData, venue: venue),
                 ),
               );
             },
