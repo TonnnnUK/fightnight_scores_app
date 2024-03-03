@@ -22,10 +22,34 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: const Color(0xFF790000),
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
+
+          // Define the default brightness and colors.
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.purple,
+            brightness: Brightness.light,
+          ),
+
+          // Define the default `TextTheme`. Use this to specify the default
+          // text styling for headlines, titles, bodies of text, and more.
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(
+              fontSize: 72,
+              fontWeight: FontWeight.bold,
+            ),
+            // ···
+            titleLarge: TextStyle(
+              fontSize: 30,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ),
+
+        // ThemeData(
+        //   primaryColor: const Color(0xFF790000),
+        //   useMaterial3: true,
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.red.shade900),
+        // ),
         title: 'Fightnight Scores',
         home: AppController(),
       ),
@@ -109,7 +133,9 @@ class _AppControllerState extends State<AppController> {
           children: <Widget>[
             Consumer<MyAppState>(
               builder: (context, appState, _) {
-                return appState.isLoggedIn ? const Text('Account') : const LoginPage();
+                return appState.isLoggedIn
+                    ? const Text('Account')
+                    : const LoginPage();
               },
             ),
           ],

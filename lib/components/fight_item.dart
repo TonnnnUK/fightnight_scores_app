@@ -36,7 +36,7 @@ class FightItem extends StatelessWidget {
     return Card(
       color: const Color(0xFFFFFFFF),
       child: ExpansionTile(
-        backgroundColor: Colors.grey.shade200,
+        // backgroundColor: Colors.grey.shade200,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -51,7 +51,7 @@ class FightItem extends StatelessWidget {
             const SizedBox(width: 5.0),
             const Text(
               'vs',
-              style: TextStyle(fontSize: 12.0),
+              style: TextStyle(fontSize: 12.0, color: Colors.black),
             ),
             const SizedBox(width: 5.0),
             Text(

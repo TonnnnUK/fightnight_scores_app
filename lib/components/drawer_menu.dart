@@ -9,7 +9,7 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Drawer(
-      backgroundColor: const Color(0xFFF9F9F9),
+      // backgroundColor: const Color(0xFFF9F9F9),
       child: Container(
         color: Colors.grey.shade100,
         child: ListView(
@@ -33,12 +33,12 @@ class DrawerMenu extends StatelessWidget {
                     ],
                   ),
                   
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Menu'),
-                    ],
-                  ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text('Menu'),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
