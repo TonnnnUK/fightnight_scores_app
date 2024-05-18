@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 
+class RoundData {
+  final int homeScore;
+  final int awayScore;
+  final int homeMarginPercentage;
+  final int awayMarginPercentage;
+  final String reason;
+  final String comments;
+
+  RoundData({
+    required this.homeScore,
+    required this.awayScore,
+    required this.homeMarginPercentage,
+    required this.awayMarginPercentage,
+    required this.reason,
+    required this.comments,
+  });
+}
+
 class ScorecardScreen extends StatefulWidget {
   final dynamic fight;
   final String? venue;
@@ -12,6 +30,8 @@ class ScorecardScreen extends StatefulWidget {
 }
 
 class _ScorecardScreenState extends State<ScorecardScreen> {
+  List<RoundData> roundDataList = [];
+
   @override
   Widget build(BuildContext context) {
     // Extracting relevant data
@@ -19,7 +39,6 @@ class _ScorecardScreenState extends State<ScorecardScreen> {
         '${widget.fight['homefighter']['first_name']} ${widget.fight['homefighter']['last_name']}';
     final String fighterB =
         '${widget.fight['awayfighter']['first_name']} ${widget.fight['awayfighter']['last_name']}';
-    final int rounds = 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -80,65 +99,79 @@ class _ScorecardScreenState extends State<ScorecardScreen> {
                 ),
               ],
             ),
-            _buildScorecard(rounds),
-            _buildAddScoresButton(rounds),
+            _buildScorecard(),
+            _buildAddScoresButton(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildScorecard(int rounds) {
-    List<Widget> scoreRows = [];
-
-    // Score rows
-    for (int i = 0; i < rounds; i++) {
-      final String scoreA =
-          '10'; // Replace this with the actual score for boxer A in each round
-      final String scoreB =
-          '9'; // Replace this with the actual score for boxer B in each round
-      final int roundNumber = i + 1;
-
-      scoreRows.add(Row(
-        children: [
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(scoreA),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text('$roundNumber'),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(scoreB),
-            ),
-          ),
-        ],
-      ));
-    }
-
+  Widget _buildScorecard() {
     return Column(
-      children: scoreRows,
+      children: roundDataList.asMap().entries.map((entry) {
+        int roundNumber = entry.key + 1;
+        RoundData roundData = entry.value;
+
+        return Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(roundData.homeScore.toString()),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text("${roundData.homeMarginPercentage}%"),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text('$roundNumber'),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(roundData.awayScore.toString()),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text("${roundData.awayMarginPercentage}%"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }).toList(),
     );
   }
 
-  Widget _buildAddScoresButton(rounds) {
+  Widget _buildAddScoresButton() {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: ElevatedButton(
         onPressed: () {
           _showScoreDialog(context);
         },
-        child: Text('Score Round ${rounds + 1}'),
+        child: Text('Score Round ${roundDataList.length + 1}'),
       ),
     );
   }
@@ -346,8 +379,28 @@ class _ScorecardScreenState extends State<ScorecardScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                // You can access homeMargin, awayMargin, selectedReason, and comments here
+                // Save the round data
+                RoundData roundData = RoundData(
+                  homeScore: int.parse(controllerA.text),
+                  awayScore: int.parse(controllerB.text),
+                  homeMarginPercentage: homeMargin,
+                  awayMarginPercentage: 100 - homeMargin,
+                  reason: selectedReason,
+                  comments: comments.isNotEmpty ? comments : 'none',
+                );
+                roundDataList.add(roundData);
+
+                // Clear the text fields and reset other values
+                controllerA.clear();
+                controllerB.clear();
+                homeMargin = 50;
+                awayMargin = 50;
+                selectedReason = '';
+                comments = '';
+
+                // Close the dialog and update UI
                 Navigator.of(context).pop();
+                setState(() {}); // Update UI
               },
               child: const Text('Submit'),
             ),
