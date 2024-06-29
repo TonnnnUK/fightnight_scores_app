@@ -32,12 +32,13 @@ class FightItem extends StatelessWidget {
         '${homefighter?['first_name']} ${homefighter?['last_name']}';
     final String fighterB =
         '${awayfighter?['first_name']} ${awayfighter?['last_name']}';
+    final String fightSlug = '${fightData['slug']}';
 
     return Card(
       color: const Color(0xFFFFFFFF),
       child: ExpansionTile(
         // backgroundColor: Colors.grey.shade200,
-        title: Row(
+        title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -106,8 +107,9 @@ class FightItem extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const WebViewContainer(
-                        url: 'https://fight-score.com',
+                      builder: (context) => WebViewContainer(
+                        url:
+                            'https://fight-score.com/analysis/$fightSlug/combined-scorecard',
                       ),
                     ),
                   );
